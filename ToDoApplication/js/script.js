@@ -1,21 +1,30 @@
 // alert("Connected")
-import ToDoOperation from '../js/Todo.js';
 
-var ul = document.getElementById('list')
-var li
-let td = new ToDoOperation();
-let tdList = td.toDo();
-let undoList = [];
-var addButton = document.getElementById('add')
-addButton.addEventListener('click', addToDoList)
+let ul = document.getElementById('list')
+let li;
+let undoList =[];
+let toDoList = [];
+let addButton = document.getElementById('add')
+addButton.addEventListener('click', addTodo)
 
-var removeButton = document.getElementById('remove')
-removeButton.addEventListener('click', removeToDoList)
+let removeButton = document.getElementById('remove')
+removeButton.addEventListener('click', removeTodo)
+class TodoOperation{
+     addItem(value){
+        console.log(value); 
+        toDoList.push(value)
+       
+     
+     }
+      removeItem(value){
+        
+        toDoList.pop(value)
+     }  
+}
 
+let toDO = new TodoOperation();
 
-var toDoList = [];
-
-function addToDoList(){
+function addTodo(){
 
     var input = document.getElementById('input')
     var value = input.value
@@ -27,9 +36,16 @@ function addToDoList(){
         ul.insertBefore(para, ul.childNodes[0])
     }
     else{
-        td.addItem(value);
-        undoList.push(td.removeItem(value));
-        console.log("In else : " + td.toDo());
+        toDO.addItem(value);
+        resetItem();
+        undoList.push([toDO.removeItem,value])
+        console.log(undoList);
+        undoList[0][0](undoList[0][1])
+        toDoList.forEach((element)=>{
+            
+            
+            displayToDo(element)
+        })
     }
     input.value = ''
 }    
@@ -43,26 +59,36 @@ function resetItem(){
     }
 }
 
-function removeToDoList(){
+function removeTodo(){
     li = ul.children
      console.log(li)
 
     for (let index = 0; index < li.length; index++) {
         // const element = li[index];
-        console.log(li[index])
-        console.log(value)
+      
+        
+        //console.log(value)
         while(li[index] && li[index].children[0].checked)
         {
-            value = li[index].children[1].innerHTML
-            td.removeItem(value);
-            undoList.push(td.addItem(value));
+           let value = li[index].children[1].innerHTML
+            //console.log(li[index].children[1].value);s
+            removeItem(value)
+            undoList.push(addItem(value))
+            console.log(undoList)
             ul.removeChild(li[index]);
         }
+
+       
+        
     }
+       
+
 }
 
-
 function displayToDo(value){
+
+
+    
     var textnode = document.createTextNode(value)
 
     //Create New Li
@@ -85,6 +111,4 @@ function displayToDo(value){
     
     setTimeout(() => {
         li.className='visual'}, 5)     
-}
-
-
+    }
