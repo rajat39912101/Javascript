@@ -7,7 +7,7 @@
         // let undoList=[];
         // let redoList =[];
     }
-     toDo(){
+      toDo(){
         console.log(this.toDoList);
         
         return this.toDoList
