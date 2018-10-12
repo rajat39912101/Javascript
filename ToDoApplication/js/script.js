@@ -4,8 +4,34 @@ let ul = document.getElementById('list')
 let li;
 let undoList =[];
 let toDoList = [];
+let redoList = [];
 let addButton = document.getElementById('add')
 addButton.addEventListener('click', addTodo)
+
+document.addEventListener("keydown", function (zEvent){
+ 
+    if (event.code == "KeyY" && event.ctrlKey) {
+        alert("y")
+        let popValue = redoList.pop();
+         let str = popValue[0](popValue[1]);
+         if(str=="add"){
+            undoList.push([toDO.removeItem,popValue[1]])
+        }
+        else{
+            undoList.push([toDO.addItem,popValue[1]])
+        }
+         resetItem()
+        toDoList.forEach((element)=>{
+            
+            
+            displayToDo(element)
+        })
+        //console.log(undoList)
+    }
+    
+}
+)
+
 
 let removeButton = document.getElementById('remove')
 removeButton.addEventListener('click', removeTodo)
