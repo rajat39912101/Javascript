@@ -1,5 +1,3 @@
-// alert("Connected")
-
 let ul = document.getElementById('list')
 let li;
 let undoList =[];
