@@ -1,20 +1,21 @@
 // alert("Connected")
+import ToDoOperation from '../js/Todo.js';
 
 var ul = document.getElementById('list')
 var li
-let 
+let td = new ToDoOperation();
+let tdList = td.toDo();
+let undoList = [];
 var addButton = document.getElementById('add')
-addButton.addEventListener('click', addItem)
+addButton.addEventListener('click', addToDoList)
 
 var removeButton = document.getElementById('remove')
-removeButton.addEventListener('click', removeItem)
+removeButton.addEventListener('click', removeToDoList)
 
-var resetButton = document.getElementById('reset')
-resetButton.addEventListener('click', resetItem)
 
 var toDoList = [];
 
-function addItem(){
+function addToDoList(){
 
     var input = document.getElementById('input')
     var value = input.value
@@ -26,7 +27,9 @@ function addItem(){
         ul.insertBefore(para, ul.childNodes[0])
     }
     else{
-        addToDoItem(value);
+        td.addItem(value);
+        undoList.push(td.removeItem(value));
+        console.log("In else : " + td.toDo());
     }
     input.value = ''
 }    
@@ -40,50 +43,26 @@ function resetItem(){
     }
 }
 
-function removeItem(){
+function removeToDoList(){
     li = ul.children
      console.log(li)
 
     for (let index = 0; index < li.length; index++) {
         // const element = li[index];
         console.log(li[index])
-        value = li[index].children[1].innerHTML
         console.log(value)
         while(li[index] && li[index].children[0].checked)
         {
-            //console.log(li[index].children[1].value);
-            removeToDoItem(li[index].children[1].innerHTML);
+            value = li[index].children[1].innerHTML
+            td.removeItem(value);
+            undoList.push(td.addItem(value));
             ul.removeChild(li[index]);
         }
-
-        
     }
-        resetItem();
-        toDoList.forEach(function(element) {displayToDo(element)});
-
 }
 
-function addToDoItem(value){
-    toDoList.push(value);
-    resetItem();
-    toDoList.forEach(function(element) {displayToDo(element)});
-}
-
-function removeToDoItem(value){
-    toDoList = toDoList.filter(function(item) {
-        console.log("Item value  : " + item + " and compare string : " + value); 
-        return item !== value
-    })
-    toDoList.forEach(function(element){
-        console.log(element);
-    })
-    
-} 
 
 function displayToDo(value){
-
-
-    
     var textnode = document.createTextNode(value)
 
     //Create New Li
@@ -106,6 +85,6 @@ function displayToDo(value){
     
     setTimeout(() => {
         li.className='visual'}, 5)     
-    }
+}
 
 

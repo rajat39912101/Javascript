@@ -1,14 +1,13 @@
-export 
-  export * from class TodoOperation{
+  export class TodoOperation{
     
     constructor(){
         
-        this.toDoList= toDoList
+         this.toDoList=[];
         console.log(toDoList)
         // let undoList=[];
         // let redoList =[];
     }
-    toDo(){
+     toDo(){
         console.log(this.toDoList);
         
         return this.toDoList
