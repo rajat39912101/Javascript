@@ -1,18 +1,25 @@
-// alert("Connected")
-import ToDoOperation from '../js/Todo.js';
 
-var ul = document.getElementById('list')
-var li
-let td = new ToDoOperation();
-let tdList = td.toDo();
-let undoList = [];
-var addButton = document.getElementById('add')
-addButton.addEventListener('click', addToDoList)
+let ul = document.getElementById('list')
+let li;
+let undoList =[];
+let toDoList = [];
+let addButton = document.getElementById('add')
+addButton.addEventListener('click', addTodo)
 
-var removeButton = document.getElementById('remove')
-removeButton.addEventListener('click', removeToDoList)
-
-
+let removeButton = document.getElementById('remove')
+removeButton.addEventListener('click', removeTodo)
+class TodoOperation{
+     addItem(value){
+        console.log(value); 
+        toDoList.push(value)
+       
+     
+     }
+      removeItem(value){
+        
+        toDoList.pop(value)
+     }  
+}
 var toDoList = [];
 
 function addToDoList(){
