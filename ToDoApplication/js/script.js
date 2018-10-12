@@ -1,4 +1,4 @@
-let ul = document.getElementById('list')
+let ul = document.getElementById('list')//List
 let li;
 let undoList =[];
 let toDoList = [];
