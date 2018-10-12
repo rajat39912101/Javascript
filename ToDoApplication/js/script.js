@@ -1,4 +1,6 @@
+
 // alert("Connected")
+
 
 let ul = document.getElementById('list')
 let li;
@@ -21,6 +23,16 @@ document.addEventListener("keydown", function (zEvent){
             undoList.push([toDO.addItem,popValue[1]])
         }
          resetItem()
+
+let addButton = document.getElementById('add')
+addButton.addEventListener('click', addTodo)
+document.addEventListener('keydown',function(event){
+    if (event.code == "KeyZ" && event.ctrlKey) {
+        alert("Hello")
+        let popValue = undoList.pop();
+        let str= popValue[0](popValue[1]);
+     
+        resetItem()
         toDoList.forEach((element)=>{
             
             
@@ -33,18 +45,25 @@ document.addEventListener("keydown", function (zEvent){
 )
 
 
+  
+})
 let removeButton = document.getElementById('remove')
 removeButton.addEventListener('click', removeTodo)
 class TodoOperation{
      addItem(value){
         console.log(value); 
         toDoList.push(value)
-       
+        return "add";  
      
      }
       removeItem(value){
-        
-        toDoList.pop(value)
+        console.log(value);
+        // toDoList.pop(value)
+        toDoList=toDoList.filter((element)=>{
+            return element !== value;
+        })
+        console.log(toDoList);
+        return "remove"
      }  
 }
 
@@ -66,6 +85,7 @@ function addTodo(){
         resetItem();
         undoList.push([toDO.removeItem,value])
         console.log(undoList);
+
         undoList[0][0](undoList[0][1])
         toDoList.forEach((element)=>{
             
@@ -74,6 +94,7 @@ function addTodo(){
         })
     }
     input.value = ''
+    redoList = [];
 }    
 
 function resetItem(){
@@ -98,6 +119,8 @@ function removeTodo(){
         {
            let value = li[index].children[1].innerHTML
             //console.log(li[index].children[1].value);s
+            toDO.removeItem(value)
+            undoList.push([toDO.addItem,value])
             removeItem(value)
             undoList.push(addItem(value))
             console.log(undoList)
@@ -107,6 +130,10 @@ function removeTodo(){
        
         
     }
+       
+
+    redoList = [];
+
        
 
 }
@@ -138,3 +165,7 @@ function displayToDo(value){
     setTimeout(() => {
         li.className='visual'}, 5)     
     }
+
+
+
+
