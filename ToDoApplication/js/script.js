@@ -1,3 +1,4 @@
+
 let ul = document.getElementById('list')
 let li;
 let undoList =[];
@@ -19,10 +20,9 @@ class TodoOperation{
         toDoList.pop(value)
      }  
 }
+var toDoList = [];
 
-let toDO = new TodoOperation();
-
-function addTodo(){
+function addToDoList(){
 
     var input = document.getElementById('input')
     var value = input.value
@@ -34,16 +34,9 @@ function addTodo(){
         ul.insertBefore(para, ul.childNodes[0])
     }
     else{
-        toDO.addItem(value);
-        resetItem();
-        undoList.push([toDO.removeItem,value])
-        console.log(undoList);
-        undoList[0][0](undoList[0][1])
-        toDoList.forEach((element)=>{
-            
-            
-            displayToDo(element)
-        })
+        td.addItem(value);
+        undoList.push(td.removeItem(value));
+        console.log("In else : " + td.toDo());
     }
     input.value = ''
 }    
@@ -57,36 +50,26 @@ function resetItem(){
     }
 }
 
-function removeTodo(){
+function removeToDoList(){
     li = ul.children
      console.log(li)
 
     for (let index = 0; index < li.length; index++) {
         // const element = li[index];
-      
-        
-        //console.log(value)
+        console.log(li[index])
+        console.log(value)
         while(li[index] && li[index].children[0].checked)
         {
-           let value = li[index].children[1].innerHTML
-            //console.log(li[index].children[1].value);s
-            removeItem(value)
-            undoList.push(addItem(value))
-            console.log(undoList)
+            value = li[index].children[1].innerHTML
+            td.removeItem(value);
+            undoList.push(td.addItem(value));
             ul.removeChild(li[index]);
         }
-
-       
-        
     }
-       
-
 }
 
+
 function displayToDo(value){
-
-
-    
     var textnode = document.createTextNode(value)
 
     //Create New Li
@@ -109,6 +92,6 @@ function displayToDo(value){
     
     setTimeout(() => {
         li.className='visual'}, 5)     
-    }
+}
 
 
