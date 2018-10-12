@@ -1,3 +1,7 @@
+
+// alert("Connected")
+
+
 let ul = document.getElementById('list')
 let li;
 let undoList =[];
@@ -59,6 +63,8 @@ function addTodo(){
         resetItem();
         undoList.push([toDO.removeItem,value])
         console.log(undoList);
+
+        undoList[0][0](undoList[0][1])
         toDoList.forEach((element)=>{
             
             
@@ -93,6 +99,8 @@ function removeTodo(){
             //console.log(li[index].children[1].value);s
             toDO.removeItem(value)
             undoList.push([toDO.addItem,value])
+            removeItem(value)
+            undoList.push(addItem(value))
             console.log(undoList)
             ul.removeChild(li[index]);
         }
@@ -101,6 +109,7 @@ function removeTodo(){
         
     }
     redoList = [];
+
        
 
 }
@@ -132,5 +141,7 @@ function displayToDo(value){
     setTimeout(() => {
         li.className='visual'}, 5)     
     }
+
+
 
 
