@@ -1,7 +1,6 @@
 
 // alert("Connected")
 
-
 let ul = document.getElementById('list')
 let li;
 let undoList =[];
@@ -20,6 +19,26 @@ document.addEventListener('keydown',function(event){
         toDoList.forEach((element)=>{
             
             
+                       
+            displayToDo(element)
+        })
+        //console.log(undoList)
+    }
+
+    if (event.code == "KeyY" && event.ctrlKey) {
+        //alert("y")
+        let popValue = redoList.pop();
+        
+         let str = popValue[0](popValue[1]);
+        
+        if(str=="add"){
+            undoList.push([toDO.removeItem,popValue[1]])
+        }
+        else{
+            undoList.push([toDO.addItem,popValue[1]])
+        }
+         resetItem()
+        toDoList.forEach((element)=>{
             displayToDo(element)
         })
         //console.log(undoList)
