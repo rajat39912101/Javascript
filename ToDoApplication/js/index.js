@@ -1,37 +1,39 @@
 
-// alert("Connected")
-
 let ul = document.getElementById('list')
 let li;
 let undoList =[];
 let toDoList = [];
-
+let redoList =[];
 let addButton = document.getElementById('add')
 addButton.addEventListener('click', addTodo)
 document.addEventListener('keydown',function(event){
-    //CTRL+Z
+    //ctrl-z
     if (event.code == "KeyZ" && event.ctrlKey) {
-        alert("Hello")
+        // alert("Hello")
         let popValue = undoList.pop();
         let str= popValue[0](popValue[1]);
-     
+        //redolist push
+        if(str=="add"){
+            redoList.push([toDO.removeItem,popValue[1]])
+        }
+        else{
+            redoList.push([toDO.addItem,popValue[1]])
+        }
         resetItem()
         toDoList.forEach((element)=>{
             
             
-                       
             displayToDo(element)
         })
-        //console.log(undoList)
+       
     }
-
+    //ctrl-y
     if (event.code == "KeyY" && event.ctrlKey) {
-        //alert("y")
-        let popValue = redoList.pop();
-        
+        event.preventDefault();
+         let popValue = redoList.pop();
          let str = popValue[0](popValue[1]);
-        
-        if(str=="add"){
+            //undolist push
+         if(str=="add"){
             undoList.push([toDO.removeItem,popValue[1]])
         }
         else{
@@ -39,24 +41,28 @@ document.addEventListener('keydown',function(event){
         }
          resetItem()
         toDoList.forEach((element)=>{
+        
             displayToDo(element)
         })
-        //console.log(undoList)
+
     }
-  
 })
+//remove button
 let removeButton = document.getElementById('remove')
 removeButton.addEventListener('click', removeTodo)
 class TodoOperation{
+    //add item in array
      addItem(value){
-        console.log(value); 
-        toDoList.push(value)
+    
+        let value1 =toDoList.push(value)
+        
         return "add"
      
      }
+     //remove item
       removeItem(value){
         console.log(value);
-        // toDoList.pop(value)
+       
         toDoList=toDoList.filter((element)=>{
             return element !== value;
         })
@@ -69,8 +75,8 @@ let toDO = new TodoOperation();
 
 function addTodo(){
 
-    var input = document.getElementById('input')
-    var value = input.value
+    let input = document.getElementById('input')
+    let value = input.value
 
     if (value === ''){
         var para = document.createElement('p')
@@ -83,8 +89,6 @@ function addTodo(){
         resetItem();
         undoList.push([toDO.removeItem,value])
         console.log(undoList);
-
-        undoList[0][0](undoList[0][1])
         toDoList.forEach((element)=>{
             
             
@@ -94,33 +98,33 @@ function addTodo(){
     input.value = ''
     redoList = [];
 }    
-
+//reset item
 function resetItem(){
     var lt = ul.children
+    let input = document.createElement('input');
+    input.setAttribute('id','input');
     for (let index = 0; index < lt.length; index++) {
-        // console.log(lt[index])
+       
         while(lt[index]){
         ul.removeChild(lt[index])}
     }
 }
-
+//remove
 function removeTodo(){
     li = ul.children
-     console.log(li)
+    
 
     for (let index = 0; index < li.length; index++) {
-        // const element = li[index];
+   
       
         
-        //console.log(value)
+        
         while(li[index] && li[index].children[0].checked)
         {
            let value = li[index].children[1].innerHTML
-            //console.log(li[index].children[1].value);s
+         
             toDO.removeItem(value)
             undoList.push([toDO.addItem,value])
-            removeItem(value)
-            undoList.push(addItem(value))
             console.log(undoList)
             ul.removeChild(li[index]);
         }
@@ -128,8 +132,8 @@ function removeTodo(){
        
         
     }
+    
     redoList = [];
-
        
 
 }
@@ -161,7 +165,5 @@ function displayToDo(value){
     setTimeout(() => {
         li.className='visual'}, 5)     
     }
-
-
 
 
