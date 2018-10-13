@@ -1,7 +1,6 @@
 
 // alert("Connected")
 
-
 let ul = document.getElementById('list')
 let li;
 let undoList =[];
@@ -30,9 +29,11 @@ document.addEventListener('keydown',function(event){
     }
 
     if (event.code == "KeyY" && event.ctrlKey) {
-        alert("y")
+        //alert("y")
         let popValue = redoList.pop();
+        
          let str = popValue[0](popValue[1]);
+        
         if(str=="add"){
             undoList.push([toDO.removeItem,popValue[1]])
         }
