@@ -1,7 +1,7 @@
 body{
     background-color: #34495e;
 }
- 
+ /* container*/
 #container {
     width: 350px;
     height: auto;
@@ -64,7 +64,7 @@ body{
     left: 7px;
     color: black;
 }
- 
+ /*input checkbox and list*/
 #container ul li input[type="checkbox"]:checked + label {
     text-decoration: line-through;
     color: rgba(0, 0, 0 .3);
@@ -89,7 +89,7 @@ body{
 #container .controls #input:focus {
     outline: 0;
 }
- 
+ /*buttons*/
 #container .controls button {
     width: 70%;
     background: white;
@@ -127,7 +127,7 @@ body{
     opacity: 1;
     border-radius: 10px;
 }
- 
+ /*Animation*/
 .visual {
     opacity: 1 !important;
     border-radius: 10px;

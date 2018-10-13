@@ -77,7 +77,7 @@ function addTodo(){
 
     let input = document.getElementById('input')
     let value = input.value
-
+    //handling the item not entered
     if (value === ''){
         var para = document.createElement('p')
         para.textContent = 'Please enter valid ToDo'
