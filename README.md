@@ -21,7 +21,7 @@ This whole project was maintained using [Github](https://github.com/) a Versioni
  * Install the project to download the dependencies `npm install `.
  * Build the project using npm command `npm run build`.
  * Run the Webpack server `npm run dev`.
- * [Open browser with](localhost:8080).
+ * Open browser with (localhost:8080).
 
 ## Author
 - Rajat Acharya
